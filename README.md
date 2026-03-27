@@ -6,7 +6,8 @@ This project simulates a data reconciliation framework to validate transaction d
 ---
 
 ## 🧩 Scenario
-In real-world systems, transaction data flows from APIs to databases or data warehouses. Due to failures or delays, inconsistencies can occur.  
+In real-world systems, transaction data flows from APIs to databases or data warehouses. Due to failures or delays, inconsistencies can occur.
+
 This project models such a scenario using two datasets:
 - Source transactions (simulating API/system data)
 - Target transactions (simulating stored database records)
@@ -15,14 +16,14 @@ This project models such a scenario using two datasets:
 
 ## 🗂️ Tables
 
-### Source Table: `source_transactions`
+### Source Table: source_transactions
 - transaction_id  
 - user_id  
 - amount  
 - status  
 - created_at  
 
-### Target Table: `target_transactions`
+### Target Table: target_transactions
 - transaction_id  
 - user_id  
 - amount  
@@ -34,7 +35,6 @@ This project models such a scenario using two datasets:
 ## 🔍 Data Quality Checks
 
 The following validations were implemented:
-
 1. Missing records in target  
 2. Duplicate records in target  
 3. Amount mismatches between source and target  
@@ -42,14 +42,43 @@ The following validations were implemented:
 
 ---
 
+## 🔎 Example SQL Checks
+
+### Missing Records Check
+
+```
+SELECT s.transaction_id  
+FROM source_transactions s  
+LEFT JOIN target_transactions t  
+ON s.transaction_id = t.transaction_id  
+WHERE t.transaction_id IS NULL;
+```
+
+---
+
+### Amount Mismatch Check
+
+```
+SELECT  
+    s.transaction_id,  
+    s.amount AS source_amount,  
+    t.amount AS target_amount  
+FROM source_transactions s  
+JOIN target_transactions t  
+ON s.transaction_id = t.transaction_id  
+WHERE s.amount != t.amount;
+```
+
+---
+
 ## 📊 Sample Output
 
-| Issue Type           | Transaction ID |
-|---------------------|----------------|
-| MISSING_IN_TARGET   | T4             |
-| DUPLICATE_IN_TARGET | T7             |
-| AMOUNT_MISMATCH     | T5             |
-| STATUS_MISMATCH     | T6             |
+Issue Type | Transaction ID  
+-----------|----------------  
+MISSING_IN_TARGET | T4  
+DUPLICATE_IN_TARGET | T7  
+AMOUNT_MISMATCH | T5  
+STATUS_MISMATCH | T6  
 
 ---
 
