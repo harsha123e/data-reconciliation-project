@@ -155,6 +155,19 @@ All issue types combined into a single output for reporting:
 
 ---
 
+## Dashboard
+
+Built a Power BI dashboard to visualize pipeline health metrics at a glance.
+
+![Transaction Data Reconciliation Dashboard](results/dashboard.png)
+
+Key metrics tracked:
+- Source vs Target record counts
+- Missing and duplicate transaction counts  
+- Transaction status breakdown (Failed / Pending / Success)
+  
+---
+
 ## Files
 
 generate_data.py — builds the synthetic dataset with failure patterns injected
@@ -171,4 +184,4 @@ results/ — BigQuery screenshots for every query
 
 ## Tools
 
-Python, SQL, Google BigQuery
+Python, SQL, Google BigQuery, Power BI
